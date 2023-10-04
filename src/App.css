@@ -1,0 +1,46 @@
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+
+/* user add from section start  */
+.user-from-section{
+    .text-label{
+        font-size: 14px;
+        font-weight: 500;
+        color: #364152;
+    }
+    .input-body{
+        padding: 5px 5px;
+        height: 2.4375em;
+        width: 100%;
+        border:1px solid #95b7d8;
+        border-radius: 10px;
+        &:focus{
+            border:1px solid #1173FF;
+        }
+    }
+}
+.input-body:focus{
+    border:1px solid #1173FF;
+
+}
+/* user add from section End  */
+.radio-card-box{
+    border: 1px solid lightgray;
+    padding: 7px 0px;
+    cursor: pointer;
+    .icon-box{
+        text-align: center;
+    }
+    .text-main{
+        text-align: center;
+        font-weight: 600;
+        margin: 10px 0;
+    }
+}
+.radio-card-box.selected-card {
+    border: 1px solid lightblue; 
+  }
