@@ -143,11 +143,11 @@ const CandidateModule = ({loading}) => {
   return (
     <Box sx={{ display: "flex", background: "#eef2f6", minHeight: "100vh" , overflowX:"auto" }}>
     <Navbar />
-    <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 10, marginInline: 4, background: "#ffffff", height: "100%", borderRadius: 5 }}>
+    <Box component="main" sx={{ flexGrow: 1, my: 10, background: "transparent", height: "100%", }}>
       {loading ? (
         <Loading />
         ) : (
-        <Box className="plan" sx={{ overflowX: 'auto', }}>
+        <Box sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
             <Box sx={{display:"flex" , justifyContent:"space-between" , alignItems:"center" , py:"10px"}}>
               <Typography variant='h5'>Candidate</Typography>
               <Box sx={{display:"flex", justifyContent:"space-between" , alignItems:"center" , mr:2}}>

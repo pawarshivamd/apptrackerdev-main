@@ -1,17 +1,53 @@
-import { Box, Button, Card, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, Input, InputLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, Divider, FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, Input, InputLabel, MenuItem, Radio, RadioGroup, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import Navbar from '../navbar/topmenu/Navbar'
 import Loading from '../../layout/Loader/Loading'
 import BusinessIcon from '@mui/icons-material/Business';
 import styled from 'styled-components';
+import backofficeicon from '../../imgs/icon/backoffice.svg';
+import manpowaricon from '../../imgs/icon/manpowarc.svg';
+import recruitericon from '../../imgs/icon/Recruiter.svg';
+import { Link } from 'react-router-dom';
 
+
+const status = [
+    {
+        value: 'Pending',
+        label: 'Pending',
+    },
+    {
+        value: 'Approved',
+        label: 'Approved',
+    },
+    {
+        value: 'In-progress',
+        label: 'In-progress',
+    },
+];
 const CustomTextField = styled(TextField)`
   padding:0;
   background-color: #f0f0f082;
   font-size: 16px;
   input {
+    borderRadius:7px;
+    padding:9.5px 14px;
+  }
+  .css-18iclro-MuiInputBase-root-MuiOutlinedInput-root{
+    height:30px;
+  } 
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding:9.5px 14px;
+  }
+  textarea{
+    width:100%;
     height:10px;
     borderRadius:7px;
+    padding:9.5px 14px;
+  }
+  select {
+    borderRadius: 7px;
+    border:1px solid red;
+    padding:9.5px 14px;
   }
 `;
 const Adduser = ({ loading }) => {
@@ -23,13 +59,13 @@ const Adduser = ({ loading }) => {
     return (
         <Box sx={{ display: "flex", background: "#eef2f6", minHeight: "100vh", overflowX: "auto" }}>
             <Navbar />
-            <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 10, marginInline: 4, background: "#ffffff", height: "100%", borderRadius: 5 }}>
+            <Box component="main" sx={{ flexGrow: 1, my: 10, background: "transparent", height: "100%", }}>
                 {loading ? (
                     <Loading />
                 ) : (
-                    <Box className="plan" sx={{ overflowX: 'auto', }}>
+                    <Box sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" , py:"10px" }}>
-                            <Typography variant='h5'>Add New Users</Typography>
+                            <Typography variant='h5'>Add Users</Typography>
                         </Box>
                          <Divider />
                          <Box sx={{mt:2}}>
@@ -58,8 +94,9 @@ const Adduser = ({ loading }) => {
                                 </Grid>
 
                                 <Grid component="form" item xs={4}> </Grid>
+
                                     <Grid item xs={12}>
-                                        <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontWeight:"600", fontSize:"14px" , color:"#364152"}}>Select Role</FormLabel>
+                                        <FormLabel  sx={{fontWeight:"600", fontSize:"14px" , color:"#364152"}}>Select Roles</FormLabel>
                                         <RadioGroup
                                             row
                                             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -75,7 +112,7 @@ const Adduser = ({ loading }) => {
                                                     >
                                                         <FormControlLabel value="BackOffice" control={<Radio />} label="" sx={{ display:"flex" , justifyContent:"end"}}  />
                                                         <Box className='icon-box'>
-                                                            <BusinessIcon />
+                                                            <img src={backofficeicon} alt='back office' />
                                                         </Box>
                                                         <Typography className='text-main'>BackOffice</Typography>
                                                     </Card>
@@ -87,7 +124,7 @@ const Adduser = ({ loading }) => {
                                                     >
                                                         <FormControlLabel value="Manpower-Company" control={<Radio />} label="" sx={{ display:"flex" , justifyContent:"end"}} />
                                                         <Box className='icon-box'>
-                                                            <BusinessIcon />
+                                                            <img src={manpowaricon} alt='manpowar company' />
                                                         </Box>
                                                         <Typography className='text-main'>Manpower Company</Typography>
                                                     </Card>
@@ -99,7 +136,7 @@ const Adduser = ({ loading }) => {
                                                     >
                                                         <FormControlLabel value="Recruiter" control={<Radio />} label="" sx={{ display:"flex" , justifyContent:"end"}} />
                                                         <Box className='icon-box'>
-                                                            <BusinessIcon />
+                                                        <img src={recruitericon} alt='recruiter' />
                                                         </Box>
                                                         <Typography className='text-main'>Recruiter </Typography>
                                                     </Card>
@@ -109,7 +146,7 @@ const Adduser = ({ loading }) => {
                                     </Grid>
                                     <Grid item lg={12} display="flex" justifyContent="end" >
                                         <Button variant='contained' type='submit' sx={{mr:2}}>save</Button>
-                                        <Button variant='outlined'>Cancel</Button>
+                                        <Button variant='outlined' component={Link} to="/user" >Cancel</Button>
                                     </Grid>
                             </Grid>
                         </FormControl>

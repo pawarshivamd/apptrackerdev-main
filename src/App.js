@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Login from './views/login-page/Login';
 import ForgotPassword from './views/login-page/ForgotPassword';
+import OTP from './views/login-page/OTP';
 import UserModule from './views/user/UserModule';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import { purple, red } from '@mui/material/colors';
@@ -18,7 +19,7 @@ import CandidateDetails from './views/Candidate/CandidateDetails';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: '#1173FF',
+      main: '#2f4c73',
       danger:"red[800]"
     },
     secondary: {
@@ -39,6 +40,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword/>} />
+            <Route path="/otp" element={<OTP/>} />
             <Route 
             path="/user"
              element={

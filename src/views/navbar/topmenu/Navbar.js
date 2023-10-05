@@ -22,7 +22,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Avatar, Button, Collapse, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Menu, MenuItem, Tooltip, alpha } from '@mui/material';
 import { ExpandLess, ExpandMore, Logout, PersonAdd, Settings, StarBorder } from '@mui/icons-material';
 import SideMenuList from '../menulist/SideMenuList';
-import DashboardIcon from '@mui/icons-material/Dashboard';
+import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
 const drawerWidth = 250;
 
 const openedMixin = (theme) => ({
@@ -109,7 +111,7 @@ const Navbar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  
+
 
 
 
@@ -135,7 +137,7 @@ const Navbar = () => {
               <Typography variant="h6" noWrap component="div">
                 App Tracker
               </Typography>
-              <IconButton
+              {/* <IconButton
                 color="inherit"
                 aria-label="open drawer"
                 onClick={() => { setOpen(!open) }}
@@ -143,7 +145,7 @@ const Navbar = () => {
                 sx={{ ml: 2 }}
               >
                 <MenuIcon />
-              </IconButton>
+              </IconButton> */}
             </Typography>
 
             <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -156,7 +158,7 @@ const Navbar = () => {
                   aria-haspopup="true"
                   aria-expanded={profileopen ? 'true' : undefined}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+                  <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -198,13 +200,13 @@ const Navbar = () => {
           >
             <Link to="/profile" style={{ textDecoration: "none", color: "black" }}>
               <MenuItem onClick={handleClose} >
-                <Avatar /> Profile
+                <AccountCircleOutlinedIcon  color='primary' sx={{mr:1}} /> Profile
               </MenuItem>
             </Link>
             <Divider />
             <MenuItem onClick={handleClickOpenDialogbox} >
               <ListItemIcon>
-                <Logout fontSize="small" />
+                <Logout fontSize="small" color='primary' />
               </ListItemIcon>
               Logout
             </MenuItem>
@@ -217,15 +219,15 @@ const Navbar = () => {
             </IconButton>
           </DrawerHeader>
           <List>
-           
-          <ListItemButton onClick={handleClicklist}>
-        <ListItemIcon>
-        <DashboardIcon />
-        </ListItemIcon>
-        <ListItemText primary="Dashboard" />
-        {openlist ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={openlist} timeout="auto" unmountOnExit>
+
+            {/* <ListItemButton onClick={handleClicklist}>
+              <ListItemIcon>
+                <DashboardOutlinedIcon />
+              </ListItemIcon>
+              <ListItemText primary="Dashboard" />
+              {openlist ? <ExpandLess /> : <ExpandMore />}
+            </ListItemButton> */}
+            {/* <Collapse in={openlist} timeout="auto" unmountOnExit>
         <List component="div" disablePadding>
           <ListItemButton sx={{ pl: 4 }} onClick={() => navigate("/")}>
             <ListItemIcon>
@@ -249,61 +251,62 @@ const Navbar = () => {
             
           </ListItemButton>
           </List>
-          </Collapse>
+          </Collapse> */}
+
             {routes.map((route) => (
               <>
-              <ListItem
-                key={route.path}
-                disablePadding
-                sx={{ display: 'block', border: "none" }}
-                onClick={() => navigate(route.path)}
-              >
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
+                <ListItem
+                  key={route.path}
+                  disablePadding
+                  sx={{ display: 'block', border: "none" ,}}
+                  onClick={() => navigate(route.path)}
                 >
-                  <ListItemIcon
+                  <ListItemButton
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
                     }}
-                    primary={route.icon}
                   >
-                    {route.icon}
-                  </ListItemIcon>
-                  <ListItemText primary={route.label} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                      }}
+                      primary={route.icon}
+                    >
+                      {route.icon}
+                    </ListItemIcon>
+                    <ListItemText primary={route.label} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
               </>
             ))}
+
           </List>
-          <Divider />
         </Drawer>
         <Dialog
-        open={openDialogbox}
-        onClose={handleCloseDialogbox}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {""}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-           Are you sure want to logout?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialogbox}>No</Button>
-          <Button onClick={() => { navigate("/"); }} autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
+          open={openDialogbox}
+          onClose={handleCloseDialogbox}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {""}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure want to logout?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialogbox}>No</Button>
+            <Button onClick={() => { navigate("/"); }} autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
 
     </>

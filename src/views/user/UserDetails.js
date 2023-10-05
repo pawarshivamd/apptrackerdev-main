@@ -1,37 +1,76 @@
-import { Box, Button, Card, Divider, FormControl, FormControlLabel, FormLabel, Grid, Radio, RadioGroup, TextField, Typography } from '@mui/material'
+import { Box, Button, Card, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Divider, FormControl, FormControlLabel, FormLabel, Grid, MenuItem, Radio, RadioGroup, TextField, Typography } from '@mui/material'
 import React, { useState } from 'react'
-import Navbar from '../navbar/topmenu/Navbar'
-import Loading from '../../layout/Loader/Loading'
-import BusinessIcon from '@mui/icons-material/Business';
+import Navbar from '../navbar/topmenu/Navbar';
 import styled from 'styled-components';
+import backofficeicon from '../../imgs/icon/backoffice.svg';
+import manpowaricon from '../../imgs/icon/manpowarc.svg';
+import recruitericon from '../../imgs/icon/Recruiter.svg';
+import { Link, Navigate } from 'react-router-dom';
+const status = [
+    {
+        value: 'Pending',
+        label: 'Pending',
+    },
+    {
+        value: 'Approved',
+        label: 'Approved',
+    },
+    {
+        value: 'In-progress',
+        label: 'In-progress',
+    },
+];
 const CustomTextField = styled(TextField)`
   padding:0;
   background-color: #f0f0f082;
   font-size: 16px;
   input {
+    borderRadius:7px;
+    padding:9.5px 14px;
+  }
+  .css-18iclro-MuiInputBase-root-MuiOutlinedInput-root{
+    height:30px;
+  } 
+  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
+    padding:9.5px 14px;
+  }
+  textarea{
+    width:100%;
     height:10px;
     borderRadius:7px;
+    padding:9.5px 14px;
+  }
+  select {
+    borderRadius: 7px;
+    border:1px solid red;
+    padding:9.5px 14px;
   }
 `;
 const UserDetails = ({ Loading }) => {
     const [selectedRole, setSelectedRole] = useState("BackOffice"); 
-
+    const [openDialogbox, setOpenDialogbox] = useState(false);
+    const handleCloseDialogbox = () => {
+      setOpenDialogbox(false);
+    };
+    const handleClickOpenDialogbox = () => {
+        setOpenDialogbox(true);
+      };
     const handleRadioChange = (value) => {
         setSelectedRole(value);
     };
     return (
         <Box sx={{ display: "flex", background: "#eef2f6", minHeight: "100vh", overflowX: "auto" }}>
             <Navbar />
-            <Box component="main" sx={{ flexGrow: 1, p: 3, mt: 10, marginInline: 4, background: "#ffffff", height: "100%", borderRadius: 5 }}>
+            <Box component="main" sx={{ flexGrow: 1, my: 10, background: "transparent", height: "100%", }}>
                 {Loading ? (
                     <Loading />
                 ) : (
-                    <Box className="plan" sx={{ overflowX: 'auto', }}>
+                    <Box sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: "10px" }}>
                             <Typography variant='h5'>Users Details</Typography>
                             <Box>
                                 <Button variant='contained' color='primary' sx={{mr:2}}>Edit</Button>
-                                <Button variant='contained' color='error'>Delete</Button>
+                                <Button variant='contained' color='error' onClick={handleClickOpenDialogbox}>Delete</Button>
                             </Box>
                         </Box>
                         <Divider />
@@ -60,7 +99,7 @@ const UserDetails = ({ Loading }) => {
                                     </Grid>
                                     <Grid component="form" item xs={4}> </Grid>
                                     <Grid item xs={12}>
-                                        <FormLabel id="demo-row-radio-buttons-group-label" sx={{fontWeight:"600", fontSize:"14px" , color:"#364152"}}>Select Role</FormLabel>
+                                        <FormLabel  sx={{fontWeight:"600", fontSize:"14px" , color:"#364152"}}>Select Roles</FormLabel>
                                         <RadioGroup
                                             row
                                             aria-labelledby="demo-row-radio-buttons-group-label"
@@ -76,7 +115,7 @@ const UserDetails = ({ Loading }) => {
                                                     >
                                                         <FormControlLabel value="BackOffice" control={<Radio />} label="" sx={{ display:"flex" , justifyContent:"end"}} />
                                                         <Box className='icon-box'>
-                                                            <BusinessIcon />
+                                                        <img src={backofficeicon} alt='back office' />
                                                         </Box>
                                                         <Typography className='text-main'>BackOffice</Typography>
                                                     </Card>
@@ -88,7 +127,7 @@ const UserDetails = ({ Loading }) => {
                                                     >
                                                         <FormControlLabel value="Manpower-Company" control={<Radio />} label="" sx={{ display:"flex" , justifyContent:"end"}} />
                                                         <Box className='icon-box'>
-                                                            <BusinessIcon />
+                                                        <img src={manpowaricon} alt='manpowar company' />
                                                         </Box>
                                                         <Typography className='text-main'>Manpower Company</Typography>
                                                     </Card>
@@ -100,7 +139,7 @@ const UserDetails = ({ Loading }) => {
                                                     >
                                                         <FormControlLabel value="Recruiter" control={<Radio />} label="" sx={{ display:"flex" , justifyContent:"end"}} />
                                                         <Box className='icon-box'>
-                                                            <BusinessIcon />
+                                                        <img src={recruitericon} alt='recruiter' />
                                                         </Box>
                                                         <Typography className='text-main'>Recruiter </Typography>
                                                     </Card>
@@ -115,6 +154,27 @@ const UserDetails = ({ Loading }) => {
                                 </Grid>
                             </FormControl>
                         </Box>
+            <Dialog
+          open={openDialogbox}
+          onClose={handleCloseDialogbox}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {""}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              Are you sure want to delete user details?
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseDialogbox}>No</Button>
+            <Button  to="/user" component={Link}  autoFocus>
+              Yes
+            </Button>
+          </DialogActions>
+        </Dialog>
                     </Box>
                 )}
             </Box>
