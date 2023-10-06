@@ -67,7 +67,7 @@ const UserDetails = ({ Loading }) => {
                 ) : (
                     <Box sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: "10px" }}>
-                            <Typography variant='h5'>Users Details</Typography>
+                            <Typography variant='h5'>User Details</Typography>
                             <Box>
                                 <Button variant='contained' color='primary' sx={{mr:2}}>Edit</Button>
                                 <Button variant='contained' color='error' onClick={handleClickOpenDialogbox}>Delete</Button>
@@ -107,7 +107,7 @@ const UserDetails = ({ Loading }) => {
                                             value={selectedRole} // Set the value to the selected role
                                             onChange={(event) => handleRadioChange(event.target.value)}
                                         >
-                                            <Grid container spacing={2}>
+                                            <Grid container spacing={2} sx={{my:2}}>
                                                 <Grid component="form" item lg={3} md={4} sm={12} xs={12}>
                                                     <Card
                                                         className={selectedRole === "BackOffice" ? "radio-card-box selected-card" : "radio-card-box"}

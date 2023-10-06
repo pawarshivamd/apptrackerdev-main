@@ -16,6 +16,16 @@ import UserDetails from './views/user/UserDetails';
 import CandidateModule from './views/Candidate/CandidateModule';
 import AddCandidate from './views/Candidate/AddCandidate';
 import CandidateDetails from './views/Candidate/CandidateDetails';
+import Backoffice from './views/back office/Backoffice';
+import AddBackofficeuser from './views/back office/AddBackofficeuser';
+import BackofficeDetails from './views/back office/BackofficeDetails';
+import ManpowarModule from './views/Manpowar/ManpowarModule';
+import AddManpowar from './views/Manpowar/AddManpowar';
+import ManpowarDetails from './views/Manpowar/ManpowarDetails';
+import RecruiterModule from './views/Recruiter/RecruiterModule';
+import AddRecruiter from './views/Recruiter/AddRecruiter';
+import RecruiterDetails from './views/Recruiter/RecruiterDetails';
+import Dashbord from './views/Dashbord/Dashbord';
 export const theme = createTheme({
   palette: {
     primary: {
@@ -41,19 +51,22 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword/>} />
             <Route path="/otp" element={<OTP/>} />
-            <Route 
-            path="/user"
-             element={
-             <UserModule  
-              // loading={true | false }
-               />
-              } 
-            />
+            <Route path="/dashbord" element={<Dashbord/>}/>
+            <Route path="/user" element={<UserModule  />} />
              <Route path="/adduser" element={<Adduser/>}/>
              <Route path="/userdetails" element={<UserDetails/>}/>
              <Route path="/candidates" element={<CandidateModule/>}/>
              <Route path="/addcandidates" element={<AddCandidate/>}/>
              <Route path="/candidatesdetails" element={<CandidateDetails/>}/>
+             <Route path="/backoffice" element={<Backoffice/>}/>
+             <Route path="/addbackofficeuser" element={<AddBackofficeuser/>}/>
+             <Route path="/backofficedetails" element={<BackofficeDetails/>}/>
+             <Route path='/manpowar' element={<ManpowarModule />} />
+             <Route path="/addmanpowar" element={<AddManpowar/>}/>
+             <Route path="/manpowardetails" element={<ManpowarDetails/>} />
+             <Route path="/recuiter" element={<RecruiterModule/>} />
+             <Route path="/addrecuiter" element={<AddRecruiter/>} />
+             <Route path="/recuiterdetails" element={<RecruiterDetails/>} />
             <Route path="/profile" element={<ProfilePage/>} />
             <Route path='*' element={<Error/>}/>
         </Routes>

@@ -112,7 +112,7 @@ const UserModule = ({ loading }) => {
   console.log(loading)
   console.log(rows)
   return (
-    <>
+    
       <Box sx={{ display: "flex", background: "#eef2f6", minHeight: "100vh" , overflowX:"auto" }}>
         <Navbar />
         <Box component="main" sx={{ flexGrow: 1, my: 10, background: "transparent", height: "100%", }}>
@@ -190,7 +190,7 @@ const UserModule = ({ loading }) => {
 
         </Box>
       </Box>
-    </>
+    
   )
 }
 

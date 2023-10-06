@@ -3,14 +3,9 @@ import GroupIcon from '@mui/icons-material/Group';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined';
 import GroupsOutlinedIcon from '@mui/icons-material/GroupsOutlined';
+import SettingsOutlinedIcon from '@mui/icons-material/SettingsOutlined';
+import LibraryBooksOutlinedIcon from '@mui/icons-material/LibraryBooksOutlined';
 const SideMenuList =[
-
-  { 
-    id:0,
-    path: "",
-    label: "Dashboard",
-    icon: <DashboardOutlinedIcon color='primary' />,
-   },
   { 
 
     id:1,
@@ -23,6 +18,18 @@ const SideMenuList =[
     path: "/candidates",
     label: "Candidates",
     icon: <GroupsOutlinedIcon color='primary' />,
+   },
+   { 
+    id:3,
+    path: "",
+    label: "Reports",
+    icon: <LibraryBooksOutlinedIcon color='primary' />,
+   },
+   { 
+    id:4,
+    path: "",
+    label: "Settings",
+    icon: <SettingsOutlinedIcon color='primary' />,
    },
 ]
 

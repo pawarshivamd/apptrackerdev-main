@@ -27,7 +27,7 @@ const StyledTable = styled(Table)(() => ({
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    border:'1px solid #0000ff75',
+    border:'1px solid #bdd6f7',
     backgroundColor: alpha(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: alpha(theme.palette.common.white, 0.25),
@@ -63,66 +63,61 @@ const Search = styled('div')(({ theme }) => ({
       },
     },
   }));
-const rows = [
-  {
-    id: 1,
-    Name: "Stacia Taree",
-    PassportNo:"EC7162382",
-    Nationality: "Singapore",
-    wp: <CheckIcon color='success' />,
-    wv:<CheckIcon color='success' />,
-    Rc:<CheckIcon color='success' />,
+  const rows = [
+    {
+        id: 1,
+        Name: "Khushbu Patel",
+        PassportNo: "EC7182392",
+        Nationality: "Romania",
+        wp: <CheckIcon color='success' />,
+        wv: <CheckIcon color='success' />,
+        Rc: <CheckIcon color='success' />,
 
+    },
+    {
+        id: 2,
+        Name: "Sattar Memon",
+        PassportNo: "WB1266255",
+        Nationality: "Thailand",
+        wp: <CloseIcon color='error' />,
+        wv: <CheckIcon color='success' />,
+        Rc: <CloseIcon color='error' />,
+    }, {
+        id: 3,
+        Name: "Tanvi Taree",
+        PassportNo: "M79446042",
+        Nationality: "Korea",
+        wp: <CheckIcon color='success' />,
+        wv: <CloseIcon color='error' />,
+        Rc: <CloseIcon color='error' />,
+    }, {
+        id: 4,
+        Name: "Shrey Rajwadi",
+        PassportNo: "E05360350",
+        Nationality: "China",
+        wp: <CloseIcon color='error' />,
+        wv: <CloseIcon color='error' />,
+        Rc: <CloseIcon color='error' />,
+    },
+    {
+      id: 5,
+      Name: "Shivam Patel",
+      PassportNo: "E05360350",
+      Nationality: "China",
+      wp: <CheckIcon color='success' />,
+      wv: <CloseIcon color='error' />,
+      Rc: <CloseIcon color='error' />,
   },
   {
-    id: 2,
-    Name: "Stacia Taree",
-    PassportNo:"AA1126255",
-    Nationality: "Thailand",
-    wp: <CloseIcon color='error' />,
-    wv:<CheckIcon color='success' />,
-    Rc:<CloseIcon color='error' />,
-  }, {
-    id: 3,
-    Name: "Stacia Taree",
-    PassportNo:"M49334041",
-    Nationality: "Korea",
-    wp: <CheckIcon color='success' />,
-    wv:<CloseIcon color='error' />,
-    Rc:<CloseIcon color='error' />,
-  }, {
-    id: 4,
-    Name: "Stacia Taree",
-    PassportNo:"E05160360",
-    Nationality: "China",
-    wp: <CloseIcon color='error' />,
-    wv:<CloseIcon color='error' />,
-    Rc:<CloseIcon color='error' />,
-  }, {
-    id: 5,
-    Name: "Stacia Taree",
-    PassportNo:"EC4744643",
-    Nationality: "Brunei ",
-    wp: <CheckIcon color='success'/>,
-    wv:<CloseIcon color='error' />,
-    Rc:<CheckIcon color='success' />,
-  }, {
     id: 6,
-    Name: "Stacia Taree",
-    PassportNo:"E4701031B",
-    Nationality: "Singapore",
-    wp: <CheckIcon color='success' />,
-    wv:<CheckIcon color='success' />,
-    Rc:<CloseIcon color='error' />,
-  }, {
-    id: 7,
-    Name: "Stacia Taree",
-    PassportNo:"EC7162382",
-    Nationality: "Philippines",
-    wp: <CheckIcon color='success' />,
-    wv:<CheckIcon color='success' />,
-    Rc:<CloseIcon color='error' />,
-  },];
+    Name: "Nihar Patel",
+    PassportNo: "E05360350",
+    Nationality: "U.S",
+    wp: <CloseIcon color='error' />,
+    wv: <CloseIcon color='error' />,
+    Rc: <CloseIcon color='error' />,
+},
+  ];
 
   
 

@@ -11,8 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import bg from "../../imgs/login bg/bg.jpg";
-import bg1 from "../../imgs/login bg/bg1.jpg";
-import bg2 from "../../imgs/login bg/bg2.jpg";
+
 import logo from '../../imgs/logo/logo.svg'; 
 import { Link, Link as RouterLink } from 'react-router-dom';
 import { Button } from '@mui/material';
@@ -70,7 +69,7 @@ const Login = () => {
             <Card sx={{ maxWidth: 350, marginInline: 'auto', padding: 3, boxShadow:" rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
                 <Box
                     component="div"
-                    sx={{  width: '80px', height: '80px', marginInline: 'auto' }}
+                    sx={{  width: '200px', py:2, marginInline: 'auto' }}
                 >
                     <img src={logo} alt="Logo" width="100%" height="100%" />
                 </Box>
@@ -132,7 +131,7 @@ const Login = () => {
                     </Typography>
 
                     <Typography sx={{ mt: 3,textAlign:"center" }} component="div">
-                        <Button variant="contained"  to="/user" component={Link}  >Sign in</Button>
+                        <Button variant="contained"  to="/dashbord" component={Link}  >Sign in</Button>
                     </Typography>
                 </Box>
             </Card>

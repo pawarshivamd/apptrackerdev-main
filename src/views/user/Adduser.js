@@ -51,7 +51,7 @@ const CustomTextField = styled(TextField)`
   }
 `;
 const Adduser = ({ loading }) => {
-    const [selectedRole, setSelectedRole] = useState(""); // Initialize with a default value
+    const [selectedRole, setSelectedRole] = useState("BackOffice"); 
 
     const handleRadioChange = (value) => {
         setSelectedRole(value);
@@ -65,7 +65,7 @@ const Adduser = ({ loading }) => {
                 ) : (
                     <Box sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" , py:"10px" }}>
-                            <Typography variant='h5'>Add Users</Typography>
+                            <Typography variant='h5'>Add User</Typography>
                         </Box>
                          <Divider />
                          <Box sx={{mt:2}}>
@@ -104,7 +104,7 @@ const Adduser = ({ loading }) => {
                                             value={selectedRole} // Set the value to the selected role
                                             onChange={(event) => handleRadioChange(event.target.value)}
                                         >
-                                          <Grid container spacing={2}>
+                                          <Grid container spacing={2} sx={{my:1}}>
                                                 <Grid component="form" item lg={3} md={4} sm={12} xs={12}>
                                                     <Card
                                                         className={selectedRole === "BackOffice" ? "radio-card-box selected-card" : "radio-card-box"}

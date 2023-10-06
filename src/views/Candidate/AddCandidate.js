@@ -9,6 +9,61 @@ import WorkPermit from '../../imgs/icon/workpermit.svg';
 import WorkVisa from '../../imgs/icon/workvisa.svg';
 import ResidenceCard from '../../imgs/icon/residencecard.svg';
 import { Link } from 'react-router-dom';
+
+const BackOffice =[
+    {
+        value: 'Sattar Patel',
+        label: 'Sattar Patel',
+    },
+    {
+        value: 'Harsh Patel',
+        label: 'Harsh Patel',
+    },
+    {
+        value: 'Rishi Joshi',
+        label: 'Rishi Joshi',
+    },
+    {
+        value: 'Jaydeep Rajwadi',
+        label: 'Jaydeep Rajwadi',
+    },
+]
+const Manpower =[
+    {
+        value: 'OpenXcell',
+        label: 'OpenXcell',
+    },
+    {
+        value: 'Agile Infoways Pvt Ltd',
+        label: 'Agile Infoways Pvt Ltd',
+    },
+    {
+        value: 'RapidOps',
+        label: 'RapidOps',
+    },
+    {
+        value: 'RadixWeb',
+        label: 'RadixWeb',
+    },
+]
+const Recruiter =[
+    {
+        value: 'Tatvasoft',
+        label: 'Tatvasoft',
+    },
+    {
+        value: 'Oracle',
+        label: 'Oracle',
+    },
+    {
+        value: 'RapidOps',
+        label: 'RapidOps',
+    },
+    {
+        value: 'IBM',
+        label: 'IBM',
+    },
+]
 const Nationality = [
     {
         value: 'Romania',
@@ -133,12 +188,27 @@ const CustomTextField = styled(TextField)`
   }
 `;
 const AddCandidate = ({ loading }) => {
+    const [selectedRecruiter, setSelectedRecruiter] = useState('Tatvasoft');
+    const [selectedManpower, setSelectedManpower] = useState('OpenXcell'); // Set the default selected value
+    const [selectedBackOffice, setSelectedBackOffice] = useState('Sattar Patel'); // Set the default selected value
+
+    const handleRecruiterChange = (event) => {
+        setSelectedRecruiter(event.target.value);
+    };
+
+    const handleManpowerChange = (event) => {
+        setSelectedManpower(event.target.value);
+    };
+
+    const handleBackOfficeChange = (event) => {
+        setSelectedBackOffice(event.target.value);
+    };
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
-    const [selectedRoles, setSelectedRoles] = useState("");
+    const [selectedRoles, setSelectedRoles] = useState("BackOffice");
 
     const handleRoleClick = (role) => {
         setSelectedRoles((prevSelectedRoles) => {
@@ -156,7 +226,7 @@ const AddCandidate = ({ loading }) => {
 
                     <Box className="plan" sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
                         <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", py: "10px" }}>
-                            <Typography variant='h5'>Add Users</Typography>
+                            <Typography variant='h5'>Add Candidate</Typography>
                         </Box>
                         <Divider />
                         <Box sx={{ mt: 2 }}>
@@ -265,39 +335,56 @@ const AddCandidate = ({ loading }) => {
                                         <label htmlFor="visa-date-time" className='text-label'>Date & Time of Entry</label>
                                         <CustomTextField type="datetime-local" id="visa-date-time" fullWidth />
                                     </Grid>
-                                    <Grid component="form" item xs={4} >
-                                            <label htmlFor="BackOffice" className='text-label' >Back Office</label>
-                                            <CustomTextField select id="BackOffice" fullWidth >
-                                                {status.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </CustomTextField>
-                                        </Grid>
-                                        <Grid component="form" item xs={4} >
-                                            <label htmlFor="BackOffice" className='text-label' >Manpower </label>
-                                            <CustomTextField select id="BackOffice" fullWidth >
-                                                {status.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </CustomTextField>
-                                        </Grid>
-                                        <Grid component="form" item xs={4} >
-                                            <label htmlFor="BackOffice" className='text-label' >Recruiter</label>
-                                            <CustomTextField select id="BackOffice" fullWidth >
-                                                {status.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </CustomTextField>
-                                        </Grid>
+                                    <Grid component="form" item xs={4}>
+                                    <label htmlFor="BackOffice" className='text-label'>
+                                        Back Office
+                                    </label>
+                                    <CustomTextField
+                                        select
+                                        id="BackOffice"
+                                        fullWidth
+                                        value={selectedBackOffice} // Set the selected value
+                                        onChange={handleBackOfficeChange} // Handle changes to the selected value
+                                    >
+                                        {BackOffice.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </CustomTextField>
+                                </Grid>
+                                <Grid component="form" item xs={4}>
+                                    <label htmlFor="Manpower" className='text-label'>
+                                        Manpower
+                                    </label>
+                                    <CustomTextField
+                                        select
+                                        id="Manpower"
+                                        fullWidth
+                                        value={selectedManpower}
+                                        onChange={handleManpowerChange}
+                                    >
+                                        {Manpower.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </CustomTextField>
+                                </Grid>
+                                <Grid component="form" item xs={4} >
+                                    <label htmlFor="Recruiter" className='text-label' >Recruiter</label>
+                                    <CustomTextField select id="Recruiter" value={selectedRecruiter} // Set the selected value
+                                        onChange={handleRecruiterChange} fullWidth >
+                                        {Recruiter.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </CustomTextField>
+                                </Grid>
                                     <Grid item xs={12}>
-                                        <FormLabel  sx={{fontWeight:"600", fontSize:"14px" , color:"#364152"}}>Select Roles</FormLabel>
-                                        <Grid container spacing={2}>
+                                        <FormLabel  sx={{fontWeight:"600", fontSize:"14px" , color:"#364152" }}>Select Roles</FormLabel>
+                                        <Grid container spacing={2} sx={{my:1}}>
                                             <Grid component="form" item lg={3} md={4} sm={12} xs={12}>
                                                 <Card
                                                     className={selectedRoles.includes("BackOffice") ? "radio-card-box selected-card" : "radio-card-box"}

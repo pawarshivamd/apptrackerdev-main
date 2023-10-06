@@ -9,6 +9,61 @@ import { Link } from 'react-router-dom';
 import WorkPermit from '../../imgs/icon/workpermit.svg';
 import WorkVisa from '../../imgs/icon/workvisa.svg';
 import ResidenceCard from '../../imgs/icon/residencecard.svg';
+import { CustomTextField } from '../../layout/TextFild';
+const BackOffice = [
+    {
+        value: 'Sattar Patel',
+        label: 'Sattar Patel',
+    },
+    {
+        value: 'Harsh Patel',
+        label: 'Harsh Patel',
+    },
+    {
+        value: 'Rishi Joshi',
+        label: 'Rishi Joshi',
+    },
+    {
+        value: 'Jaydeep Rajwadi',
+        label: 'Jaydeep Rajwadi',
+    },
+]
+const Manpower = [
+    {
+        value: 'OpenXcell',
+        label: 'OpenXcell',
+    },
+    {
+        value: 'Agile Infoways Pvt Ltd',
+        label: 'Agile Infoways Pvt Ltd',
+    },
+    {
+        value: 'RapidOps',
+        label: 'RapidOps',
+    },
+    {
+        value: 'RadixWeb',
+        label: 'RadixWeb',
+    },
+]
+const Recruiter = [
+    {
+        value: 'Tatvasoft',
+        label: 'Tatvasoft',
+    },
+    {
+        value: 'Oracle',
+        label: 'Oracle',
+    },
+    {
+        value: 'RapidOps',
+        label: 'RapidOps',
+    },
+    {
+        value: 'IBM',
+        label: 'IBM',
+    },
+]
 const Nationality = [
     {
         value: 'Romania',
@@ -87,32 +142,7 @@ const Customtextarea = styled(TextareaAutosize)`
     outline: 1px solid #1173FF;
   }
 `
-const CustomTextField = styled(TextField)`
-  padding:0;
-  background-color: #f0f0f082;
-  font-size: 16px;
-  input {
-    borderRadius:7px;
-    padding:9.5px 14px;
-  }
-  .css-18iclro-MuiInputBase-root-MuiOutlinedInput-root{
-    height:30px;
-  } 
-  .css-11u53oe-MuiSelect-select-MuiInputBase-input-MuiOutlinedInput-input {
-    padding:9.5px 14px;
-  }
-  textarea{
-    width:100%;
-    height:10px;
-    borderRadius:7px;
-    padding:9.5px 14px;
-  }
-  select {
-    borderRadius: 7px;
-    border:1px solid red;
-    padding:9.5px 14px;
-  }
-`;
+
 function CustomTabPanel(props) {
     const { children, value, index, ...other } = props;
 
@@ -144,20 +174,34 @@ function a11yProps(index) {
     };
 }
 const CandidateDetails = ({ loading }) => {
+    const [selectedRecruiter, setSelectedRecruiter] = useState('Tatvasoft');
+    const [selectedManpower, setSelectedManpower] = useState('OpenXcell'); // Set the default selected value
+    const [selectedBackOffice, setSelectedBackOffice] = useState('Sattar Patel'); // Set the default selected value
 
-    const [value, setValue] =useState(0);
+    const handleRecruiterChange = (event) => {
+        setSelectedRecruiter(event.target.value);
+    };
+
+    const handleManpowerChange = (event) => {
+        setSelectedManpower(event.target.value);
+    };
+
+    const handleBackOfficeChange = (event) => {
+        setSelectedBackOffice(event.target.value);
+    };
+    const [value, setValue] = useState(0);
     const [openDialogbox, setOpenDialogbox] = useState(false);
     const handleCloseDialogbox = () => {
-      setOpenDialogbox(false);
+        setOpenDialogbox(false);
     };
     const handleClickOpenDialogbox = () => {
         setOpenDialogbox(true);
-      };
+    };
     const handleChange = (event, newValue) => {
         setValue(newValue);
     };
 
-    const [selectedRoles, setSelectedRoles] = useState("");
+    const [selectedRoles, setSelectedRoles] = useState("BackOffice");
 
     const handleRoleClick = (role) => {
         // Toggle the selection of the role
@@ -190,15 +234,15 @@ const CandidateDetails = ({ loading }) => {
 
                                 <Grid component="form" item xs={4}>
                                     <label htmlFor="cn" className='text-label'>Candidate Surname</label>
-                                    <CustomTextField type="text" id="cn" fullWidth value=" Taree" />
+                                    <CustomTextField type="text" id="cn" fullWidth value="Khushbu " />
                                 </Grid>
                                 <Grid component="form" item xs={4}>
                                     <label htmlFor="CN" className='text-label'>Candidate Name</label>
-                                    <CustomTextField  type="text" id="cn" value="Stacia" fullWidth />
+                                    <CustomTextField type="text" id="cn" value="Patel" fullWidth />
                                 </Grid>
-                                <Grid component="form" item xs={4} >
+                                <Grid component="form" item xs={4}>
                                     <label htmlFor="Nationality" className='text-label' >Nationality</label>
-                                    <CustomTextField select id="status" fullWidth >
+                                    <CustomTextField select id="status" fullWidth value="Romania" >
                                         {Nationality.map((option) => (
                                             <MenuItem key={option.value} value={option.value}>
                                                 {option.label}
@@ -217,7 +261,7 @@ const CandidateDetails = ({ loading }) => {
                                 </Grid>
                                 <Grid component="form" item xs={4} >
                                     <label htmlFor="status" className='text-label' >Status</label>
-                                    <CustomTextField select id="status" value="pandding" fullWidth >
+                                    <CustomTextField select id="status" value="Pandding" fullWidth >
                                         {status.map((option) => (
                                             <MenuItem key={option.value} value={option.value}>
                                                 {option.label}
@@ -229,7 +273,7 @@ const CandidateDetails = ({ loading }) => {
                                 <Grid lg={12} xs={12} item><Box sx={{ fontWeight: "600", fontSize: "18px" }}>Personal Details</Box></Grid>
                                 <Grid component="form" item xs={4} >
                                     <label htmlFor="education" className='text-label' >Education</label>
-                                    <CustomTextField select id="education" fullWidth  >
+                                    <CustomTextField select id="education" value="Graduate" fullWidth  >
                                         {Education.map((option) => (
                                             <MenuItem key={option.value} value={option.value}>
                                                 {option.label}
@@ -289,39 +333,56 @@ const CandidateDetails = ({ loading }) => {
                                     <label htmlFor="visa-date-time" className='text-label'>Date & Time of Entry</label>
                                     <CustomTextField type="datetime-local" id="visa-date-time" fullWidth />
                                 </Grid>
+                                <Grid component="form" item xs={4}>
+                                    <label htmlFor="BackOffice" className='text-label'>
+                                        Back Office
+                                    </label>
+                                    <CustomTextField
+                                        select
+                                        id="BackOffice"
+                                        fullWidth
+                                        value={selectedBackOffice} // Set the selected value
+                                        onChange={handleBackOfficeChange} // Handle changes to the selected value
+                                    >
+                                        {BackOffice.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </CustomTextField>
+                                </Grid>
+                                <Grid component="form" item xs={4}>
+                                    <label htmlFor="Manpower" className='text-label'>
+                                        Manpower
+                                    </label>
+                                    <CustomTextField
+                                        select
+                                        id="Manpower"
+                                        fullWidth
+                                        value={selectedManpower}
+                                        onChange={handleManpowerChange}
+                                    >
+                                        {Manpower.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </CustomTextField>
+                                </Grid>
                                 <Grid component="form" item xs={4} >
-                                            <label htmlFor="BackOffice" className='text-label' >Back Office</label>
-                                            <CustomTextField select id="BackOffice" fullWidth >
-                                                {status.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </CustomTextField>
-                                        </Grid>
-                                        <Grid component="form" item xs={4} >
-                                            <label htmlFor="BackOffice" className='text-label' >Manpower </label>
-                                            <CustomTextField select id="BackOffice" fullWidth >
-                                                {status.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </CustomTextField>
-                                        </Grid>
-                                        <Grid component="form" item xs={4} >
-                                            <label htmlFor="BackOffice" className='text-label' >Recruiter</label>
-                                            <CustomTextField select id="BackOffice" fullWidth >
-                                                {status.map((option) => (
-                                                    <MenuItem key={option.value} value={option.value}>
-                                                        {option.label}
-                                                    </MenuItem>
-                                                ))}
-                                            </CustomTextField>
-                                        </Grid>
+                                    <label htmlFor="Recruiter" className='text-label' >Recruiter</label>
+                                    <CustomTextField select id="Recruiter" value={selectedRecruiter} // Set the selected value
+                                        onChange={handleRecruiterChange} fullWidth >
+                                        {Recruiter.map((option) => (
+                                            <MenuItem key={option.value} value={option.value}>
+                                                {option.label}
+                                            </MenuItem>
+                                        ))}
+                                    </CustomTextField>
+                                </Grid>
                                 <Grid item xs={12}>
-                                    <FormLabel  sx={{ fontWeight: "600", fontSize: "14px", color: "#364152" }}>Select Roles</FormLabel>
-                                    <Grid container spacing={2}>
+                                    <FormLabel sx={{ fontWeight: "600", fontSize: "14px", color: "#364152" }}>Select Roles</FormLabel>
+                                    <Grid container spacing={2} sx={{my:1}}>
                                         <Grid component="form" item lg={3} md={4} sm={12} xs={12}>
                                             <Card
                                                 className={selectedRoles.includes("BackOffice") ? "radio-card-box selected-card" : "radio-card-box"}
@@ -329,8 +390,8 @@ const CandidateDetails = ({ loading }) => {
                                             >
                                                 <Box sx={{ display: "flex", justifyContent: "end" }}>  <Radio checked={selectedRoles.includes("BackOffice")} readOnly /></Box>
                                                 <Box className='icon-box'>
-                                                    
-                                                    <img src={WorkPermit} alt="Work Permit"/>
+
+                                                    <img src={WorkPermit} alt="Work Permit" />
                                                 </Box>
                                                 <Typography className='text-main'>Work Permit</Typography>
                                             </Card>
@@ -342,8 +403,8 @@ const CandidateDetails = ({ loading }) => {
                                             >
                                                 <Box sx={{ display: "flex", justifyContent: "end" }}><Radio checked={selectedRoles.includes("Manpower-Company")} readOnly /></Box>
                                                 <Box className='icon-box'>
-                                                <img src={WorkVisa} alt="Work Visa"/>
-                                                    
+                                                    <img src={WorkVisa} alt="Work Visa" />
+
                                                 </Box>
                                                 <Typography className='text-main'>Work Visa</Typography>
                                             </Card>
@@ -355,7 +416,7 @@ const CandidateDetails = ({ loading }) => {
                                             >
                                                 <Box sx={{ display: "flex", justifyContent: "end" }}> <Radio checked={selectedRoles.includes("Recruiter")} readOnly /></Box>
                                                 <Box className='icon-box'>
-                                                <img src={ResidenceCard} alt="Residence Card"/>
+                                                    <img src={ResidenceCard} alt="Residence Card" />
                                                 </Box>
                                                 <Typography className='text-main'>Residence Card</Typography>
                                             </Card>
@@ -579,26 +640,26 @@ const CandidateDetails = ({ loading }) => {
                     </Box>
                 </Box>
                 <Dialog
-          open={openDialogbox}
-          onClose={handleCloseDialogbox}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">
-            {""}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Are you sure want to delete candidate?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialogbox}>No</Button>
-            <Button  to="/candidates" component={Link}  autoFocus>
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
+                    open={openDialogbox}
+                    onClose={handleCloseDialogbox}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogTitle id="alert-dialog-title">
+                        {""}
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText id="alert-dialog-description">
+                            Are you sure want to delete candidate?
+                        </DialogContentText>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleCloseDialogbox}>No</Button>
+                        <Button to="/candidates" component={Link} autoFocus>
+                            Yes
+                        </Button>
+                    </DialogActions>
+                </Dialog>
             </Box>
         </Box>
     )

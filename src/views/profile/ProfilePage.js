@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import Navbar from '../navbar/topmenu/Navbar'
 import { Box, Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, OutlinedInput, Typography } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-
 const ProfilePage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState('');
@@ -92,7 +91,7 @@ const ProfilePage = () => {
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
                         >
-                          {showPassword ? <Visibility />  :<VisibilityOff /> }
+                          {showPassword ? <Visibility color='primary' />  :<VisibilityOff color='primary' /> }
                         </IconButton>
                       </InputAdornment>
                     }
@@ -119,7 +118,7 @@ const ProfilePage = () => {
                           onMouseDown={handleMouseDownConPassword}
                           edge="end"
                         >
-                          {showConPassword ?  <Visibility /> : <VisibilityOff /> }
+                          {showConPassword ?  <Visibility color='primary' /> : <VisibilityOff color='primary' /> }
                         </IconButton>
                       </InputAdornment>
                     }
