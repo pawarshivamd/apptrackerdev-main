@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { styled, useTheme } from "@mui/material/styles";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import MuiDrawer from "@mui/material/Drawer";
 import MuiAppBar from "@mui/material/AppBar";
@@ -17,8 +17,6 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 import RoomPreferencesOutlinedIcon from '@mui/icons-material/RoomPreferencesOutlined';
 import CollectionsBookmarkOutlinedIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
 import HailOutlinedIcon from '@mui/icons-material/HailOutlined';
@@ -40,19 +38,16 @@ import {
   Menu,
   MenuItem,
   Tooltip,
-  alpha,
+  useMediaQuery,
 } from "@mui/material";
 import {
   ExpandLess,
   ExpandMore,
   Logout,
-  PersonAdd,
-  Settings,
-  StarBorder,
 } from "@mui/icons-material";
-import SideMenuList from "../menulist/SideMenuList";
+import ContactEmergencyOutlinedIcon from '@mui/icons-material/ContactEmergencyOutlined';
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-
+const smallScreenBreakpoint = 991;
 const drawerWidth = 250;
 
 const openedMixin = (theme) => ({
@@ -73,6 +68,10 @@ const closedMixin = (theme) => ({
   width: `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up("sm")]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+  [theme.breakpoints.down(smallScreenBreakpoint)]: {
+    width: 0, // Set the width to 0 on small screens
+    
   },
 });
 
@@ -123,11 +122,24 @@ const Drawer = styled(MuiDrawer, {
 
 const Navbar = () => {
   const theme = useTheme();
-
+  const location = useLocation();
   const [openlist, setOpenlist] = useState(true);
   const [openDialogbox, setOpenDialogbox] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(true);
+  const isScreenSmall = useMediaQuery(theme.breakpoints.down("md"));
+  const [open, setOpen] = useState(!isScreenSmall);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setOpen(!isScreenSmall);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [isScreenSmall]);
+
   const handleCloseDialogbox = () => {
     setOpenDialogbox(false);
   };
@@ -149,357 +161,426 @@ const Navbar = () => {
   const handleClicklist = () => {
     setOpenlist((prevOpenlist) => !prevOpenlist);
   };
-  const [routes] = useState(SideMenuList);
+  
+  // const [routes] = useState(SideMenuList);
   return (
-    <>
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="fixed">
-          <Toolbar
+
+    <Box >
+      <CssBaseline />
+      <AppBar position="fixed" sx={{ width: "100%" }}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            component="div"
             sx={{
               display: "flex",
-              justifyContent: "space-between",
               alignItems: "center",
+              justifyContent: "space-between",
             }}
           >
-            <Box
-              component="div"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography variant="h6" noWrap component="div">
-                App Tracker
-              </Typography>
-              <Hidden mdUp>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={() => {
-                    setOpen(!open);
-                  }}
-                  edge="start"
-                  sx={{ ml: 2 }}
-                >
-                  <MenuIcon />
-                </IconButton>
-              </Hidden>
-            </Box>
+            <Typography variant="h6" noWrap component="div">
+              App Tracker
+            </Typography>
+            <Hidden mdUp>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                onClick={() => {
+                  setOpen(!open);
+                }}
+                edge="start"
+                sx={{ ml: 2 }}
+              >
+                <MenuIcon />
+              </IconButton>
+            </Hidden>
+          </Box>
 
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            >
-              <Tooltip>
-                <IconButton
-                  onClick={handleClick}
-                  size="small"
-                  sx={{ ml: 2 }}
-                  aria-controls={profileopen ? "account-menu" : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={profileopen ? "true" : undefined}
-                >
-                  <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
-                </IconButton>
-              </Tooltip>
-            </Box>
-          </Toolbar>
-          <Menu
-            anchorEl={anchorEl}
-            id="account-menu"
-            open={profileopen}
-            onClose={handleClose}
-            onClick={handleClose}
-            PaperProps={{
-              elevation: 0,
-              sx: {
-                overflow: "visible",
-                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-                mt: 1.5,
-                "& .MuiAvatar-root": {
-                  width: 32,
-                  height: 32,
-                  ml: -0.5,
-                  mr: 1,
-                },
-                "&:before": {
-                  content: '""',
-                  display: "block",
-                  position: "absolute",
-                  top: 0,
-                  right: 14,
-                  width: 10,
-                  height: 10,
-                  bgcolor: "background.paper",
-                  transform: "translateY(-50%) rotate(45deg)",
-                  zIndex: 0,
-                },
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              textAlign: "center",
+            }}
+          >
+            <Tooltip>
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={profileopen ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={profileopen ? "true" : undefined}
+              >
+                <Avatar sx={{ width: 32, height: 32 }}>A</Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
+        </Toolbar>
+        <Menu
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={profileopen}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              "& .MuiAvatar-root": {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
               },
-            }}
-            transformOrigin={{ horizontal: "right", vertical: "top" }}
-            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+              "&:before": {
+                content: '""',
+                display: "block",
+                position: "absolute",
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: "background.paper",
+                transform: "translateY(-50%) rotate(45deg)",
+                zIndex: 0,
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+        >
+          <Link
+            to="/profile"
+            style={{ textDecoration: "none", color: "black" }}
           >
-            <Link
-              to="/profile"
-              style={{ textDecoration: "none", color: "black" }}
-            >
-              <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-
-                  <AccountCircleOutlinedIcon fontSize="small" color="primary" />
-                </ListItemIcon>
-                Profile
-              </MenuItem>
-            </Link>
-            <Divider />
-            <MenuItem onClick={handleClickOpenDialogbox}>
+            <MenuItem onClick={handleClose}>
               <ListItemIcon>
-                <Logout fontSize="small" color="primary" />
+
+                <AccountCircleOutlinedIcon fontSize="small" color="primary" />
               </ListItemIcon>
-              Logout
+              Profile
             </MenuItem>
-          </Menu>
-        </AppBar>
+          </Link>
+          <Divider />
+          <MenuItem onClick={handleClickOpenDialogbox}>
+            <ListItemIcon>
+              <Logout fontSize="small" color="primary" />
+            </ListItemIcon>
+            Logout
+          </MenuItem>
+        </Menu>
+      </AppBar>
 
 
 
-        <Drawer variant="permanent" open={open}>
+      <Drawer variant="permanent" open={open}>
 
 
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === "rtl" ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronRightIcon />
+            ) : (
+              <ChevronLeftIcon />
+            )}
+          </IconButton>
+        </DrawerHeader>
 
-          <List>
+        <List>
 
-            <ListItem
+          <ListItem
 
-              disablePadding
-              sx={{ display: "block", border: "none" }}
-              onClick={() => navigate("/dashbord")}
+            disablePadding
+            sx={{ display: "block", border: "none", background: location.pathname === "/dashbord" ? "#d8e9ff" : "transparent", }}
+            onClick={() => navigate("/dashbord")}
+
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
             >
-              <ListItemButton
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+
+              >
+                <DashboardOutlinedIcon color='primary' />
+              </ListItemIcon>
+              <ListItemText
+                primary="Dashbord"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+
+
+          <ListItem disablePadding
+            sx={{ display: "block", border: "none" }}>
+            <ListItemButton onClick={handleClicklist}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : -3,
+                  justifyContent: "center",
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
+                <CollectionsBookmarkOutlinedIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Resource" sx={{ opacity: open ? 1 : 0 }} />
+              {openlist ? <ExpandLess sx={{ opacity: open ? 1 : 0 }} /> : <ExpandMore sx={{ opacity: open ? 1 : 0 }} />}
+            </ListItemButton>
+
+            <Collapse in={openlist} timeout="auto" unmountOnExit>
+              <List>
+                <ListItem
+
+                  disablePadding
+                  sx={{ display: "block", border: "none", background: location.pathname === "/backoffice" ? "#d8e9ff" : "transparent", }}
+                  onClick={() => navigate("/backoffice")}
 
                 >
-                  <DashboardOutlinedIcon color='primary' />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Dashbord"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
 
-
-            <ListItem disablePadding
-              sx={{ display: "block", border: "none" }}>
-              <ListItemButton onClick={handleClicklist}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : -3,
-                    justifyContent: "center",
-                  }}
-                >
-                  <CollectionsBookmarkOutlinedIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText primary="Resource" sx={{ opacity: open ? 1 : 0 }} />
-                {openlist ? <ExpandLess sx={{ opacity: open ? 1 : 0 }} /> : <ExpandMore sx={{ opacity: open ? 1 : 0 }} />}
-              </ListItemButton>
-
-              <Collapse in={openlist} timeout="auto" unmountOnExit>
-                <List component="div" disablePadding>
-                  <ListItemButton sx={{ pl: 3 }} onClick={() => navigate("/backoffice")}>
-                    <ListItemIcon>
+                    >
                       <RoomPreferencesOutlinedIcon color="primary" />
                     </ListItemIcon>
-                    <ListItemText primary="Back Office" />
+                    <ListItemText
+                      primary="Back Office"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
                   </ListItemButton>
-                  <ListItemButton sx={{ pl: 3 }} onClick={() => navigate("/manpowar")}>
-                    <ListItemIcon>
+                </ListItem>
+
+
+                <ListItem
+
+                  disablePadding
+                  sx={{ display: "block", border: "none", background: location.pathname === "/manpowar" ? "#d8e9ff" : "transparent", }}
+                  onClick={() => navigate("/manpowar")}
+
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+
+                    >
                       <HailOutlinedIcon color="primary" />
                     </ListItemIcon>
-                    <ListItemText primary="Manpower " />
+                    <ListItemText
+                      primary="Manpower"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
                   </ListItemButton>
-                  <ListItemButton sx={{ pl: 3 }} onClick={() => navigate("/recuiter")}>
-                    <ListItemIcon>
-                      <StarBorder color="primary" />
+                </ListItem>
+
+                <ListItem
+
+                  disablePadding
+                  sx={{ display: "block", border: "none", background: location.pathname === "/recuiter" ? "#d8e9ff" : "transparent", }}
+                  onClick={() => navigate("/recuiter")}
+
+                >
+                  <ListItemButton
+                    sx={{
+                      minHeight: 48,
+                      justifyContent: open ? "initial" : "center",
+                      px: 2.5,
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : "auto",
+                        justifyContent: "center",
+                      }}
+
+                    >
+                    <ContactEmergencyOutlinedIcon color="primary"  />
+                      {/* <StarBorder color="primary" /> */}
                     </ListItemIcon>
-                    <ListItemText primary="Recruiter" />
+                    <ListItemText
+                      primary="Recruiter"
+                      sx={{ opacity: open ? 1 : 0 }}
+                    />
                   </ListItemButton>
-                </List>
-              </Collapse>
-            </ListItem>
+                </ListItem>
+              </List>
+            </Collapse>
+          </ListItem>
 
-            <ListItem
-              disablePadding
-              sx={{ display: "block", border: "none" }}
-              onClick={() => navigate("/user")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-
-                >
-                  <GroupOutlinedIcon color='primary' />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Users"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              disablePadding
-              sx={{ display: "block", border: "none" }}
-              onClick={() => navigate("/candidates")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-
-                >
-                  <GroupsOutlinedIcon color='primary' />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Candidates"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              disablePadding
-              sx={{ display: "block", border: "none" }}
-              onClick={() => navigate("")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-
-                >
-                  <LibraryBooksOutlinedIcon color='primary' />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Reports"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-            <ListItem
-              disablePadding
-              sx={{ display: "block", border: "none" }}
-              onClick={() => navigate("")}
-            >
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
-                  }}
-
-                >
-                  <SettingsOutlinedIcon color='primary' />
-                </ListItemIcon>
-                <ListItemText
-                  primary="Settings"
-                  sx={{ opacity: open ? 1 : 0 }}
-                />
-              </ListItemButton>
-            </ListItem>
-          </List>
-        </Drawer>
-        <Dialog
-          open={openDialogbox}
-          onClose={handleCloseDialogbox}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-        >
-          <DialogTitle id="alert-dialog-title">{""}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              Are you sure want to logout?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialogbox}>No</Button>
-            <Button
-              onClick={() => {
-                navigate("/");
+          <ListItem
+            disablePadding
+            sx={{ display: "block", border: "none", background: location.pathname === "/user" ? "#d8e9ff" : "transparent", }}
+            onClick={() => navigate("/user")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
               }}
-              autoFocus
             >
-              Yes
-            </Button>
-          </DialogActions>
-        </Dialog>
-      </Box>
-    </>
+              <ListItemIcon sx={{ minWidth: 0, mr: open ? 3 : "auto", justifyContent: "center", }}>
+                <GroupOutlinedIcon color='primary' />
+              </ListItemIcon>
+              <ListItemText primary="Users" sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ display: "block", border: "none", background: location.pathname === "/candidates" ? "#d8e9ff" : "transparent", }}
+            onClick={() => navigate("/candidates")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+
+              >
+                <GroupsOutlinedIcon color='primary' />
+              </ListItemIcon>
+              <ListItemText
+                primary="Candidates"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ display: "block", border: "none", background: location.pathname === "" ? "#d8e9ff" : "transparent", }}
+            onClick={() => navigate("")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+
+              >
+                <LibraryBooksOutlinedIcon color='primary' />
+              </ListItemIcon>
+              <ListItemText
+                primary="Reports"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+          <ListItem
+            disablePadding
+            sx={{ display: "block", border: "none", background: location.pathname === "" ? "#d8e9ff" : "transparent", }}
+            onClick={() => navigate("")}
+          >
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? "initial" : "center",
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : "auto",
+                  justifyContent: "center",
+                }}
+
+              >
+                <SettingsOutlinedIcon color='primary' />
+              </ListItemIcon>
+              <ListItemText
+                primary="Settings"
+                sx={{ opacity: open ? 1 : 0 }}
+              />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Drawer>
+
+      <Dialog
+        open={openDialogbox}
+        onClose={handleCloseDialogbox}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{""}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Are you sure want to logout?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialogbox}>No</Button>
+          <Button
+            onClick={() => {
+              navigate("/");
+            }}
+            autoFocus
+          >
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+
   );
 };
 

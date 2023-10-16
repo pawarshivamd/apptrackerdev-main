@@ -11,11 +11,11 @@ import {
     Grid,
     Typography,
   } from "@mui/material";
-  import Navbar from "../navbar/topmenu/Navbar";
   import Loading from "../../layout/Loader/Loading";
   import { Link } from "react-router-dom";
   import { CustomTextField } from "../../layout/TextFild";
   import { useState } from "react";
+import { WhitecardBox } from "../Dashbord/Dashbord";
   const BackofficeDetails = ({ loading }) => {
     const [openDialogbox, setOpenDialogbox] = useState(false);
     const handleCloseDialogbox = () => {
@@ -25,15 +25,6 @@ import {
       setOpenDialogbox(true);
     };
     return (
-      <Box
-        sx={{
-          display: "flex",
-          background: "#eef2f6",
-          minHeight: "100vh",
-          overflowX: "auto",
-        }}
-      >
-        <Navbar />
         <Box
           component="main"
           sx={{ flexGrow: 1, my: 10, background: "transparent", height: "100%" }}
@@ -41,19 +32,11 @@ import {
           {loading ? (
             <Loading />
           ) : (
-            <Box
-              sx={{
-                overflowX: "auto",
-                background: "#ffffff",
-                p: 3,
-                borderRadius: 5,
-                marginInline: 4,
-                my: 2,
-              }}
-            >
+            <WhitecardBox>
               <Box
                 sx={{
                   display: "flex",
+                  flexWrap:"wrap",
                   justifyContent: "space-between",
                   alignItems: "center",
                   py: "10px",
@@ -158,10 +141,9 @@ import {
                   </Button>
                 </DialogActions>
               </Dialog>
-            </Box>
+            </WhitecardBox>
           )}
         </Box>
-      </Box>
     );
   };
   

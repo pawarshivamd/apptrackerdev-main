@@ -1,18 +1,20 @@
 import React, { useState } from 'react'
-import Navbar from '../navbar/topmenu/Navbar'
 import {  Box, Button, Divider, InputBase, Table, TableBody, TableCell, TableHead, TablePagination, TableRow, Tooltip, Typography, alpha, } from '@mui/material';
 import styled from '@emotion/styled';
 import Loading from '../../layout/Loader/Loading';
 import AddIcon from '@mui/icons-material/Add';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Link } from 'react-router-dom';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import SearchIcon from '@mui/icons-material/Search';
-// import { Search } from '@mui/icons-material';
+import { WhitecardBox } from '../Dashbord/Dashbord';
 
-
+const Tablecontainer = styled(Box) (()=>({
+  '@media (max-width: 767px)': {
+      width:'257px',
+  }
+}))
 const StyledTable = styled(Table)(() => ({
   overflowX: 'auto',
   whiteSpace: 'pre',
@@ -126,7 +128,6 @@ const Search = styled('div')(({ theme }) => ({
 const CandidateModule = ({loading}) => {
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
-    const [rowBlockedStatus, setRowBlockedStatus] = useState({}); // State to track Blocked status
   
     const handleChangePage = (_, newPage) => {
       setPage(newPage);
@@ -136,14 +137,13 @@ const CandidateModule = ({loading}) => {
       setPage(0);
     };
   return (
-    <Box sx={{ display: "flex", background: "#eef2f6", minHeight: "100vh" , overflowX:"auto" }}>
-    <Navbar />
+   
     <Box component="main" sx={{ flexGrow: 1, my: 10, background: "transparent", height: "100%", }}>
       {loading ? (
         <Loading />
         ) : (
-        <Box sx={{ overflowX: 'auto', background: "#ffffff", p: 3, borderRadius: 5, marginInline: 4, my: 2 }}>
-            <Box sx={{display:"flex" , justifyContent:"space-between" , alignItems:"center" , py:"10px"}}>
+        <WhitecardBox >
+            <Box sx={{display:"flex" , flexWrap:"wrap", justifyContent:"space-between" , alignItems:"center" , py:"10px"}}>
               <Typography variant='h5'>Candidate</Typography>
               <Box sx={{display:"flex", justifyContent:"space-between" , alignItems:"center" , mr:2}}>
               <Search>
@@ -155,11 +155,11 @@ const CandidateModule = ({loading}) => {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-              <Link to="/addcandidates"><Button variant="contained" to="/adduser" > <AddIcon/> add</Button> </Link> 
+              <Button variant="contained" to="/addcandidates" component={Link} > <AddIcon/> add</Button>
               </Box>
             </Box>
             <Divider />
-            <Box sx={{mt:2}}>
+            <Tablecontainer sx={{ mt: 2  ,  overflowX: 'auto'}}>
           <StyledTable>
 
             <TableHead>
@@ -208,12 +208,12 @@ const CandidateModule = ({loading}) => {
             nextIconButtonProps={{ 'aria-label': 'Next Page' }}
             backIconButtonProps={{ 'aria-label': 'Previous Page' }}
           />
-          </Box>
-        </Box>
+          </Tablecontainer>
+        </WhitecardBox>
       )}
 
     </Box>
-  </Box>
+
   )
 }
 

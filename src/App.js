@@ -7,7 +7,7 @@ import OTP from './views/login-page/OTP';
 import UserModule from './views/user/UserModule';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import { purple, red } from '@mui/material/colors';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Navbar from './views/navbar/topmenu/Navbar';
 import ProfilePage from './views/profile/ProfilePage';
 import Error from './views/error/Error';
@@ -26,6 +26,7 @@ import RecruiterModule from './views/Recruiter/RecruiterModule';
 import AddRecruiter from './views/Recruiter/AddRecruiter';
 import RecruiterDetails from './views/Recruiter/RecruiterDetails';
 import Dashbord from './views/Dashbord/Dashbord';
+import MaybeShowNav from './views/MaybeShowNav';
 export const theme = createTheme({
   palette: {
     primary: {
@@ -47,13 +48,17 @@ function App() {
   return (
       <ThemeProvider theme={theme}>
         <BrowserRouter>
+         <Box component="div" sx={{ display: "flex", background: "#eef2f6", width:"100%"  }}>
+        <MaybeShowNav>
+            <Navbar/>
+        </MaybeShowNav>
         <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword/>} />
             <Route path="/otp" element={<OTP/>} />
             <Route path="/dashbord" element={<Dashbord/>}/>
             <Route path="/user" element={<UserModule  />} />
-             <Route path="/adduser" element={<Adduser/>}/>
+             <Route path="/adduser" element={<Adduser />}/>
              <Route path="/userdetails" element={<UserDetails/>}/>
              <Route path="/candidates" element={<CandidateModule/>}/>
              <Route path="/addcandidates" element={<AddCandidate/>}/>
@@ -68,8 +73,9 @@ function App() {
              <Route path="/addrecuiter" element={<AddRecruiter/>} />
              <Route path="/recuiterdetails" element={<RecruiterDetails/>} />
             <Route path="/profile" element={<ProfilePage/>} />
-            <Route path='*' element={<Error/>}/>
+            <Route path="*" element={<Error/>}/>
         </Routes>
+        </Box>
         </BrowserRouter>
       </ThemeProvider>
   );

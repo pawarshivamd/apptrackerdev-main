@@ -3,7 +3,7 @@ import logo from '../../imgs/logo/logo.svg';
 import bg from "../../imgs/login bg/bg.jpg";
 const OTP = () => {
   return (
-    <Typography sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',background: ` url(${bg}) ` , backgroundSize:"cover"  }} component='div'>
+    <Typography sx={{ width:"100%", minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',background: ` url(${bg}) ` , backgroundSize:"cover"  }} component='div'>
     <Card sx={{ minWidth: 350, marginInline: 'auto',  padding: 3, boxShadow:" rgba(0, 0, 0, 0.35) 0px 5px 15px"}}>
     <Box
             component="div"
@@ -20,7 +20,7 @@ const OTP = () => {
             noValidate
             autoComplete="off"
         >
-        <Typography component="div" sx={{mt:2 , textAlign:'center'}} fullWidth >
+        <Typography component="div" sx={{mt:2 , textAlign:'center'}} >
             Enter your OTP
         </Typography>
             <FormControl sx={{ mt: 3, Width:"100%" }} variant="outlined" fullWidth >
@@ -35,9 +35,9 @@ const OTP = () => {
                 />
             </FormControl>
 
-            <Typography sx={{ mt: 2,textAlign:"center" }} fullWidth>
+            <Box sx={{ mt: 2,textAlign:"center" }} >
                 <Button variant="contained"   type='submit'>Submit</Button>
-            </Typography>
+            </Box>
         </Box>
     </Card>
 </Typography>

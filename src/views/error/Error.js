@@ -3,7 +3,7 @@ import React from 'react'
 import errorimg from '../../imgs/how-to-find-and-fix-404-errors-in-wordpress.png.webp'
 const Error = () => {
   return (
-    <Typography sx={{minHeight:"100vh" , display:"flex", justifyContent:"center" ,flexWrap:"wrap"}} component="div">
+    <Typography sx={{ width:"100%", minHeight:"100vh" , display:"flex", justifyContent:"center" ,flexWrap:"wrap"}} component="div">
 
     <Typography component="div"      sx={{
         // backgroundImage: "url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif)",
